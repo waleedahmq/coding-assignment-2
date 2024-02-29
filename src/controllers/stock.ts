@@ -18,11 +18,6 @@ export const getProductStock: RequestHandler = (req, res, next) => {
   // calulateStock(sku) has the exact signature as mentioned in challange
   calulateStock(sku).then((stock) => {
     if (stock) res.status(200).json(stock);
-    else res.status(500).json({ message: 'Internal server error', statusCode: 500 });
-
-  }).catch((error) => {
-    if (error instanceof ResponseError) res.status(error.status).json({ message: error.message, statusCode: error.status });
-    else if (error instanceof Error) res.status(500).json({ message: error.message, statusCode: 500 });
-
-  });
+    else next(new ResponseError('Internal server error', 500));
+  }).catch((error) => { next(error); });
 };

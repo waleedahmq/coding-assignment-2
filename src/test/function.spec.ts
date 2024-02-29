@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { calulateStock } from '../function';
+import { calulateStock } from '../services/stock';
 import { Stock } from '../models/stock';
 import { ResponseError } from '../models/error';
 

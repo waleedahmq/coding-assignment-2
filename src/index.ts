@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import stockRoutes from './routes/stock';
+import { ResponseError } from './models/error';
 
 dotenv.config();
 
@@ -17,11 +18,12 @@ app.use('/stock', stockRoutes);
 
 // Below route is trigerred when any error is is thrown
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  res.status(500).json({ message: err.message });
+  if (err instanceof ResponseError) res.status(err.status).json({ message: err.message, statusCode: err.status });
+  else if (err instanceof Error) res.status(500).json({ message: err.message, statusCode: 500 });
 });
 
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  console.log(`[server]: Server is running at port: ${port}`);
 });
 
 export default app;
