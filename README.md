@@ -12,6 +12,4 @@ This project can run both as a RESTFul API server and as a standalone function.
 
     Build project with 'npm run build'.
 
-  The file './src/function.ts' also contains the function separately as part of the assignment.
-
     Run test cases with 'npm run test'.
